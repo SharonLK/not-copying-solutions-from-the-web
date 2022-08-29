@@ -12,8 +12,6 @@ def parse(stream: TextIO) -> Tuple[List[Contributor], List[Project]]:
 
     num_contributors, num_projects = (int(s) for s in stream.readline().split())
 
-    print(num_contributors, num_projects)
-
     for _ in range(num_contributors):
         split = stream.readline().split()
 
