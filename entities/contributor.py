@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from typing import Dict
+from typing import Set
+
+from entities.role import Role
 
 from entities.project import Project
 
@@ -7,11 +9,13 @@ from entities.project import Project
 @dataclass
 class Contributor:
     name: str
-    skills: Dict[str, int]
+    skills: Set[Role]
 
-    def get_skill_level(self, role: str) -> int:
-        if role in self.skills:
-            return self.skills[role]
+    def get_skill_level(self, role_name: str) -> int:
+        for skill in self.skills:
+            if skill.name == role_name:
+                return skill.level
+
         return 0
 
     # returns -> potential skills to improve, value will be the next level

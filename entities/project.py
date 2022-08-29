@@ -1,15 +1,13 @@
 from dataclasses import dataclass
-from typing import Dict
+from typing import List
 
-from entities.contributor import Contributor
+from entities.role import Role
 
 
 @dataclass
 class Project:
+    name: str
     duration: int
     score: int
     best_before: int
-    required_roles: Dict[str, int]
-
-    def get_relative_score(self):
-        return self.score / self.best_before
+    required_roles: List[Role]
