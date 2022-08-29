@@ -2,6 +2,7 @@ from typing import Dict, List, TextIO, Tuple
 
 from entities.contributor import Contributor
 from entities.project import Project
+from solutions.mock_solution import MockSolver
 
 
 def parse(stream: TextIO) -> Tuple[List[Contributor], List[Project]]:
@@ -40,6 +41,9 @@ def parse(stream: TextIO) -> Tuple[List[Contributor], List[Project]]:
 
 if __name__ == '__main__':
     with open('data_sets/a_an_example.in.txt', 'r') as f:
-        problem = parse(f)
+        contributors, projects = parse(f)
 
-        print(problem)
+        solver = MockSolver()
+        solution = solver.solve(contributors, projects)
+
+        print(solution)
