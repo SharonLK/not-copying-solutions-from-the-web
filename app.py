@@ -3,7 +3,7 @@ from typing import Dict, List, Set, TextIO, Tuple
 from entities.contributor import Contributor
 from entities.project import Project
 from entities.role import Role
-from solutions.mock_solution import MockSolver
+from solutions.probably_the_best_solver_ever import ProbablyTheBestSolverEver
 
 
 def parse(stream: TextIO) -> Tuple[List[Contributor], List[Project]]:
@@ -47,11 +47,11 @@ def print_output(solution: Dict[Project, List[Contributor]], stream: TextIO) -> 
 
 
 if __name__ == '__main__':
-    with open('data_sets/a_an_example.in.txt', 'r') as f:
+    with open('data_sets/b_better_start_small.in.txt', 'r') as f:
         contributors, projects = parse(f)
 
-    solver = MockSolver()
+    solver = ProbablyTheBestSolverEver()
     solution = solver.solve(contributors, projects)
 
-    with open('solution.out.txt', 'w') as f:
+    with open('solution_b.out.txt', 'w') as f:
         print_output(solution, f)

@@ -15,3 +15,6 @@ class Contributor:
                 return skill.level
 
         return 0
+
+    def __hash__(self) -> int:
+        return hash(self.name) * 3 + hash(frozenset(self.skills)) * 23
