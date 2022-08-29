@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Dict
 
+from entities.project import Project
+
 
 @dataclass
 class Contributor:
@@ -11,3 +13,11 @@ class Contributor:
         if role in self.skills:
             return self.skills[role]
         return 0
+
+    # returns -> potential skills to improve, value will be the next level
+    def get_improvement_options_in(self, project: Project) -> Dict[str, int]:
+        options = {}
+        for role, required_skill_level in project.required_roles:
+            if self.get_skill_level(role) == required_skill_level:
+                options[role] = required_skill_level + 1
+        return options
