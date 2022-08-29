@@ -33,21 +33,27 @@ def parse(stream: TextIO) -> Tuple[List[Contributor], List[Project]]:
             requirement_spit = stream.readline().split()
             requirements.append(Role(requirement_spit[0], int(requirement_spit[1])))
 
-        projects.append(Project(duration=int(split[1]), score=int(split[2]),
+        projects.append(Project(name=split[0], duration=int(split[1]), score=int(split[2]),
                                 best_before=int(split[3]), required_roles=requirements))
 
     return contributors, projects
 
 
-def parse_output(solution: Dict[Project, List[Contributor]]):
-    pass
+def print_output(solution: Dict[Project, List[Contributor]], stream: TextIO) -> None:
+    stream.write(f'{len(solution)}\n')
+
+    for project, contributors in solution.items():
+        stream.write(f'{project.name}\n')
+        contributors_names = ' '.join([contributor.name for contributor in contributors])
+        stream.write(f'{contributors_names}\n')
 
 
 if __name__ == '__main__':
     with open('data_sets/a_an_example.in.txt', 'r') as f:
         contributors, projects = parse(f)
 
-        solver = MockSolver()
-        solution = solver.solve(contributors, projects)
+    solver = MockSolver()
+    solution = solver.solve(contributors, projects)
 
-        print(solution)
+    with open('solution.out.txt', 'w') as f:
+        print_output(solution, f)

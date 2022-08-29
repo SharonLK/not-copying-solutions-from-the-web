@@ -7,5 +7,5 @@ from solutions.solver import Solver
 
 class MockSolver(Solver):
     def solve(self, contributors: List[Contributor], projects: List[Project]) \
-            -> Dict[Contributor, List[Project]]:
+            -> Dict[Project, List[Contributor]]:
         return dict()
