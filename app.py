@@ -1,7 +1,8 @@
-from typing import Dict, List, TextIO, Tuple
+from typing import Dict, List, Set, TextIO, Tuple
 
 from entities.contributor import Contributor
 from entities.project import Project
+from entities.role import Role
 from solutions.mock_solution import MockSolver
 
 
@@ -17,26 +18,29 @@ def parse(stream: TextIO) -> Tuple[List[Contributor], List[Project]]:
         split = stream.readline().split()
 
         name = split[0]
-        skills: Dict[str, int] = dict()
+        skills: Set[Role] = set()
         for __ in range(int(split[1])):
             skill_split = stream.readline().split()
-
-            skills[skill_split[0]] = int(skill_split[1])
+            skills.add(Role(skill_split[0], int(skill_split[1])))
 
         contributors.append(Contributor(name, skills))
 
     for _ in range(num_projects):
         split = stream.readline().split()
 
-        requirements: Dict[str, int] = dict()
+        requirements: List[Role] = []
         for __ in range(int(split[4])):
             requirement_spit = stream.readline().split()
-            requirements[requirement_spit[0]] = int(requirement_spit[1])
+            requirements.append(Role(requirement_spit[0], int(requirement_spit[1])))
 
         projects.append(Project(duration=int(split[1]), score=int(split[2]),
                                 best_before=int(split[3]), required_roles=requirements))
 
     return contributors, projects
+
+
+def parse_output(solution: Dict[Project, List[Contributor]]):
+    pass
 
 
 if __name__ == '__main__':
